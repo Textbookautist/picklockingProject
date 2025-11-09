@@ -2,10 +2,38 @@ body {
     background-color: darkslategray;
 }
 
+#topControls {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
 .controlBtn {
     color: black;
     background-color: gray;
     width: 64px;
+    height: 64px;
+    border: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.controlBtn:hover {
+    background-color: lightgray;
+}
+
+.controlBtn:active {
+    background-color: darkgray;
 }
 
 .standardBtn {
