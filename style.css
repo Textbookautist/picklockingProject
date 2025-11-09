@@ -2,6 +2,21 @@ body {
     background-color: darkslategray;
 }
 
+#lockContainer {
+    width: 50%;
+    height: 50%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: lightgray;
+}
+
 #topControls {
     position: fixed;
     top: 10px;
