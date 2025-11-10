@@ -77,6 +77,7 @@
             difficulty = 0;
             pinNumber = 0;
             pins = [];
+            clock = null
             screen = null
             constructor(difficulty, pinNumber) {
                 this.timeSpent = 0;
@@ -99,20 +100,25 @@
                 }
             }
             startCounting() {
-                this.timeSpent = 0;
+                this.timeSpent = 0
                 setInterval(() => {
-                    this.timeSpent++;
+                    this.timeSpent += 1000;
+                    let timeCalculus = this.timeSpent / 1000;
+                    console.log(timeCalculus);
+                    this.clock.innerText = `Time Spent: ${timeCalculus} seconds`;
                 }, 1000);
             }
             addScreen(screenElement) {
                 this.screen = screenElement;
+            }
+            addClock(clockElement) {
+                this.clock = clockElement;
             }
         }
 
         function newLock() {
             console.log("New Lock Created"); // Placeholder functionality
             lock = new Lock(3, 5); // Example: difficulty 3, 5 pins
-            lock.startCounting();
             lock.displayInfo();
 
             let lockbase = document.createElement("div");
@@ -141,11 +147,18 @@
             lockScreen.className = "lockScreen";
             lockbase.appendChild(lockScreen);
             lock.addScreen = lockScreen;
+
+            let lockclock = document.createElement("p"); //keeps time the lock tracks with startCounting()
+            lock.addClock(lockclock);
+            lockclock.className = "lockClock";
+            lockScreen.appendChild(lockclock);
+            lock.startCounting();
         }
 
         function showStatistics() {
             console.log("Showing Statistics"); // Placeholder functionality
         }
+
 
     </script>
 </body>

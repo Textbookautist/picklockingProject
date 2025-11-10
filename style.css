@@ -4,7 +4,7 @@ body {
 
 #lockContainer {
     width: 50%;
-    height: 50%;
+    height: 75%;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -71,8 +71,8 @@ body {
 
 .lockBase {
     background-color: yellow;
-    width: 300px;
-    height: 300px;
+    width: 450px;
+    height: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -89,12 +89,20 @@ body {
 .lockScreen {
     top: 0;
     left: 0;
-    width: 200px;
-    height: 100px;
+    width: 300px;
+    height: 200px;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-size: 24px;
+}
+
+.lockClock {
+    align-items: start;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 18px;
 }
