@@ -32,10 +32,15 @@
             pressureTreshold = 0;
             appliedPressure = 0;
             selected = false;
+            pinButton = null;
             constructor(pos, difficultyRating, parent) {
                 this.position = pos;
                 this.pressureTreshold = Math.ceil(Math.random() * (difficultyRating + 1) * 10);
                 this.parentLock = parent;
+                console.log(`Created Pin at position ${this.position} with pressure treshold ${this.pressureTreshold} and parent lock difficulty ${this.parentLock.difficulty}`);
+            }
+            addBtn(btn) {
+                this.pinButton = btn;
             }
             displayInfo() {
                 console.log(`     Pin Position: ${this.position}, Pressure Treshold: ${this.pressureTreshold}`);
@@ -43,6 +48,17 @@
             }
             toggleSelect() {
                 this.selected = !this.selected;
+                if (this.selected) {
+                    this.pinButton.style.backgroundColor = "red";
+                    this.parentLock.pins.forEach(pin => {
+                        if (pin !== this && pin.selected) {
+                            pin.toggleSelect();
+                        }
+                    });
+                }
+                else {
+                    this.pinButton.style.backgroundColor = "#4CAF50";
+                }
             }
             applyPressure(currentPressure) {
                 this.appliedPressure += currentPressure
@@ -99,7 +115,20 @@
             lockbase.className = "lockBase";
             lockContainer.innerHTML = ""; // Clear previous lock);
             lockContainer.appendChild(lockbase);
+            for (let [index, pin] of lock.pins.entries()) {
+                let pinBtn = document.createElement("button");
+                pinBtn.className = "circularBtn";
+                pinBtn.innerText = `Pin ${pin.position}`;
+                pinBtn.addEventListener("click", () => {
+                    pin.toggleSelect();
+                    console.log(`Pin ${pin.position} selected: ${pin.selected}`);
+                });
+                pin.addBtn(pinBtn);
+                lockbase.appendChild(pinBtn);
+            }
+
         }
+
         function showStatistics() {
             console.log("Showing Statistics"); // Placeholder functionality
         }
