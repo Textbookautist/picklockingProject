@@ -71,7 +71,30 @@ body {
 
 .lockBase {
     background-color: yellow;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pinRow {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-direction: row;
+}
+
+.lockScreen {
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
 }
