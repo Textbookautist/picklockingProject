@@ -29,6 +29,10 @@
                 this.position = pos;
                 this.pressureTreshold = Math.ceil(Math.random() * (difficultyRating + 1) * 10);
             }
+            displayInfo() {
+                console.log(`     Pin Position: ${this.position}, Pressure Treshold: ${this.pressureTreshold}`);
+
+            }
         }
         class Lock {
             difficulty = 0;
@@ -41,10 +45,19 @@
                     this.pins.push(new lockPin(i, difficulty));
                 }
             }
+            displayInfo() {
+                console.log(`Lock Difficulty: ${this.difficulty}, Number of Pins: ${this.pinNumber}`);
+                this.pins.forEach(pin => pin.displayInfo());
+            }
+            unlocked() {
+                unlockedAmount++;
+            }
         }
 
         function newLock() {
             console.log("New Lock Created"); // Placeholder functionality
+            let lock = new Lock(3, 5); // Example: difficulty 3, 5 pins
+            lock.displayInfo();
         }
         function showStatistics() {
             console.log("Showing Statistics"); // Placeholder functionality
