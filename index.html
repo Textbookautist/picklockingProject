@@ -15,12 +15,41 @@
 
 
     <script>
-        class Lock {
-            constructor(pinAmount, strengthsArray) {
-                this.pinAmount = pinAmount,
-                    this.strengthsArray = strengthsArray
+        const newLockBtn = document.getElementById("newLockBtn");
+        newLockBtn.addEventListener("click", newLock);
+        const statisticsBtn = document.getElementById("statisticsBtn");
+        statisticsBtn.addEventListener("click", showStatistics);
+        const lockContainer = document.getElementById("lockContainer");
+
+        class lockPin {
+            position = 0;
+            unlocked = false;
+            pressureTreshold = 0;
+            constructor(pos, difficultyRating) {
+                this.position = pos;
+                this.pressureTreshold = Math.ceil(Math.random() * (difficultyRating + 1) * 10);
             }
         }
+        class Lock {
+            difficulty = 0;
+            pinNumber = 0;
+            pins = [];
+            constructor(difficulty, pinNumber) {
+                this.difficulty = difficulty;
+                this.pinNumber = pinNumber;
+                for (let i = 0; i < pinNumber; i++) {
+                    this.pins.push(new lockPin(i, difficulty));
+                }
+            }
+        }
+
+        function newLock() {
+            console.log("New Lock Created"); // Placeholder functionality
+        }
+        function showStatistics() {
+            console.log("Showing Statistics"); // Placeholder functionality
+        }
+
     </script>
 </body>
 
