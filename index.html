@@ -11,6 +11,7 @@
         <button id="newLockBtn" class="controlBtn">New Lock</button>
         <button id="statisticsBtn" class="controlBtn">Statistics</button>
     </div>
+    <div id="pickContainer"></div>
     <div id="lockContainer"></div> <!-- Lock is inserted here-->
 
 
@@ -20,7 +21,10 @@
         newLockBtn.addEventListener("click", newLock);
         const statisticsBtn = document.getElementById("statisticsBtn");
         statisticsBtn.addEventListener("click", showStatistics);
-        const lockContainer = document.getElementById("lockContainer");
+
+        const pickContainer = document.getElementById("pickContainer"); //holds available picks
+
+        const lockContainer = document.getElementById("lockContainer"); // holds the lock
 
         let lock = null;
         let currentPressure = 0;
@@ -103,9 +107,18 @@
                 this.timeSpent = 0
                 setInterval(() => {
                     this.timeSpent += 1000;
-                    let timeCalculus = this.timeSpent / 1000;
-                    console.log(timeCalculus);
-                    this.clock.innerText = `Time Spent: ${timeCalculus} seconds`;
+                    let seconds = this.timeSpent / 1000;
+                    let minutes = 0
+                    if (seconds > 60) {
+                        while (seconds > 60) {
+                            seconds -= 60;
+                            minutes += 1;
+                        }
+                    }
+
+                    if (minutes == 0) { this.clock.innerText = `Time Spent: ${seconds} seconds`; }
+                    else { this.clock.innerText = `Time Spent: ${minutes} minutes and ${seconds} seconds`; }
+
                 }, 1000);
             }
             addScreen(screenElement) {
