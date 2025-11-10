@@ -41,20 +41,26 @@
             appliedPressure = 0;
             selected = false;
             pinButton = null;
-            constructor(pos, difficultyRating, parent) { // makes a pressure treshold based on difficulty, minimum of 21
+            constructor(pos, difficultyRating) { // makes a pressure treshold based on difficulty, minimum of 21
                 this.position = pos;
                 this.pressureTreshold = Math.floor(Math.random() * (difficultyRating * 10)) + 21;
-                this.parentLock = parent;
-                console.log(`Created Pin at position ${this.position} with pressure treshold ${this.pressureTreshold} and parent lock difficulty ${this.parentLock.difficulty}`);
+                console.log(`Created Pin at position ${this.position} with pressure treshold ${this.pressureTreshold}.`);
             }
             addBtn(btn) {
                 this.pinButton = btn;
+            }
+            addParentLock(lock) {
+                this.parentLock = lock;
             }
             displayInfo() {
                 console.log(`     Pin Position: ${this.position}, Pressure Treshold: ${this.pressureTreshold}`);
 
             }
             toggleSelect() {
+                if (this.unlocked) {
+                    console.log(`Pin ${this.position} is already unlocked, cannot select.`);
+                    return;
+                }
                 this.selected = !this.selected;
                 if (this.selected) {
                     this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
@@ -67,7 +73,7 @@
                 }
                 else {
                     this.pinButton.style.backgroundColor = "#4CAF50";
-                    if (this.pressureTreshold !== this.appliedPressure) {
+                    if (this.appliedPressure > 0) {
                         this.parentLock.reset()
                     }
                 }
@@ -79,10 +85,11 @@
                 }
                 else if (this.appliedPressure === this.pressureTreshold) {
                     this.unlocked = true;
+                    this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
                     console.log(`Pin ${this.position} unlocked!`);
                     this.selected = false;
                     this.pinButton.style.backgroundColor = "gray";
-                    parentLock.signalPinUnlocked(this);
+                    this.parentLock.signalPinUnlocked(this);
                 }
                 this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
             }
@@ -100,8 +107,14 @@
                 this.difficulty = difficulty;
                 this.pinNumber = pinNumber;
                 for (let i = 0; i < pinNumber; i++) {
-                    this.pins.push(new lockPin(i, difficulty, this));
+                    this.pins.push(new lockPin(i, difficulty));
                 }
+                this.addThisToPins()
+            }
+            addThisToPins() {
+                this.pins.forEach(pin => {
+                    pin.addParentLock(this);
+                });
             }
             displayInfo() {
                 console.log(`Lock Difficulty: ${this.difficulty}, Number of Pins: ${this.pinNumber}`);
@@ -241,6 +254,20 @@
             let pinInformation = document.createElement("p");
             lock.addPinInformation(pinInformation);
             quickdiv2.appendChild(pinInformation);
+
+            let applyPressureBtn = document.createElement("button");
+            applyPressureBtn.className = "controlBtn";
+            applyPressureBtn.innerText = "PICK!";
+            applyPressureBtn.addEventListener("click", () => {
+                if (lock) {
+                    if (currentPressure === 0) {
+                        console.log("No pick selected, cannot apply pressure.");
+                        return;
+                    }
+                    lock.applyPressureToSelectedPin(currentPressure);
+                }
+            });
+            quickdiv2.appendChild(applyPressureBtn);
         }
 
         function showStatistics() {
@@ -249,12 +276,14 @@
 
         function makePicks() {
             let startingValues = [3, 4, 5, 6, 7, 8]; // three of these are picked at random, turned into buttons
+            let createdButtons = [];
             for (let i = 0; i < 3; i++) {
                 let randIndex = Math.floor(Math.random() * startingValues.length);
                 let pickStrength = startingValues[randIndex];
                 startingValues.splice(randIndex, 1); // remove selected value to avoid duplicates
                 let newPick = new lockPick(pickStrength);
                 picksPouch.push(newPick);
+
 
                 let pickBtn = document.createElement("button");
                 pickBtn.className = "pickButton";
@@ -265,6 +294,15 @@
                 });
                 newPick.pickButton = pickBtn;
                 pickContainer.appendChild(pickBtn);
+                createdButtons.push(pickBtn);
+            }
+            // check that there are both buttons with odd and even values in the createdButtons
+            let hasOdd = createdButtons.some(btn => parseInt(btn.innerText.split(": ")[1]) % 2 !== 0);
+            let hasEven = createdButtons.some(btn => parseInt(btn.innerText.split(": ")[1]) % 2 === 0);
+            if (!hasOdd || !hasEven) {
+                pickContainer.innerHTML = ""; // clear picks
+                picksPouch = []; // reset picks pouch
+                makePicks(); // try again
             }
         }
         makePicks();
