@@ -66,7 +66,7 @@
                 this.difficulty = difficulty;
                 this.pinNumber = pinNumber;
                 for (let i = 0; i < pinNumber; i++) {
-                    this.pins.push(new lockPin(i, difficulty));
+                    this.pins.push(new lockPin(i, difficulty, this));
                 }
             }
             displayInfo() {
@@ -94,6 +94,11 @@
             lock = new Lock(3, 5); // Example: difficulty 3, 5 pins
             lock.startCounting();
             lock.displayInfo();
+
+            let lockbase = document.createElement("div");
+            lockbase.className = "lockBase";
+            lockContainer.innerHTML = ""; // Clear previous lock);
+            lockContainer.appendChild(lockbase);
         }
         function showStatistics() {
             console.log("Showing Statistics"); // Placeholder functionality
