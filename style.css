@@ -3,8 +3,8 @@ body {
 }
 
 #lockContainer {
-    width: 50%;
-    height: 75%;
+    width: 25%;
+    height: 50%;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -50,6 +50,17 @@ body {
 .controlBtn:active {
     background-color: darkgray;
 }
+
+#pickContainer {
+    position: relative;
+    margin: 100px auto 20px auto;
+    /* Push it down below controls */
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 
 .standardBtn {
     background-color: gray;
@@ -106,4 +117,14 @@ body {
     right: 10px;
     color: white;
     font-size: 18px;
+}
+
+.pickButton {
+    width: 80px;
+    height: 40px;
+    background-color: black;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
 }

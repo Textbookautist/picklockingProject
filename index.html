@@ -17,6 +17,9 @@
 
     <script>
 
+        let picksAvailable = 0;
+        let picksPouch = [];
+
         const newLockBtn = document.getElementById("newLockBtn");
         newLockBtn.addEventListener("click", newLock);
         const statisticsBtn = document.getElementById("statisticsBtn");
@@ -28,6 +31,7 @@
 
         let lock = null;
         let currentPressure = 0;
+        let currentPick = null
 
         class lockPin {
             parentLock = null;
@@ -37,9 +41,9 @@
             appliedPressure = 0;
             selected = false;
             pinButton = null;
-            constructor(pos, difficultyRating, parent) {
+            constructor(pos, difficultyRating, parent) { // makes a pressure treshold based on difficulty, minimum of 21
                 this.position = pos;
-                this.pressureTreshold = Math.ceil(Math.random() * (difficultyRating + 1) * 10);
+                this.pressureTreshold = Math.floor(Math.random() * (difficultyRating * 10)) + 21;
                 this.parentLock = parent;
                 console.log(`Created Pin at position ${this.position} with pressure treshold ${this.pressureTreshold} and parent lock difficulty ${this.parentLock.difficulty}`);
             }
@@ -63,6 +67,9 @@
                 }
                 else {
                     this.pinButton.style.backgroundColor = "#4CAF50";
+                    if (this.pressureTreshold !== this.appliedPressure) {
+                        this.parentLock.reset()
+                    }
                 }
             }
             applyPressure(currentPressure) {
@@ -73,6 +80,8 @@
                 else if (this.appliedPressure === this.pressureTreshold) {
                     this.unlocked = true;
                     console.log(`Pin ${this.position} unlocked!`);
+                    this.selected = false;
+                    this.pinButton.style.backgroundColor = "gray";
                     parentLock.signalPinUnlocked(this);
                 }
                 this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
@@ -124,6 +133,12 @@
 
                 }, 1000);
             }
+            applyPressureToSelectedPin(pressure) {
+                let selectedPin = this.pins.find(pin => pin.selected);
+                if (selectedPin) {
+                    selectedPin.applyPressure(pressure);
+                }
+            }
             addScreen(screenElement) {
                 this.screen = screenElement;
             }
@@ -136,7 +151,46 @@
             updatePinInformation(info) {
                 this.pinInfo.innerText = info;
             }
+            reset() { // can reset due to overpressure, or changing a pin while it has pressure applied to it
+                console.log("Lock resetting due to overpressure or pin change.");
+                this.pins.forEach(pin => {
+                    pin.appliedPressure = 0;
+                    pin.unlocked = false;
+                    if (pin.pinButton) {
+                        pin.pinButton.style.backgroundColor = "#4CAF50";
+                    }
+                });
+                this.updatePinInformation("Lock Reset. All pins set to 0 pressure.");
+            }
         }
+        class lockPick {
+            strength = 0;
+            selected = false;
+            pickButton = null;
+            constructor(strength) {
+                this.strength = strength;
+            }
+            toggleSelect() {
+                this.selected = !this.selected;
+                if (this.selected) {
+                    if (currentPick != null) {
+                        currentPick.toggleSelect();
+                    }
+                    console.log(`Pick of strength ${this.strength} selected.`);
+                    currentPressure = this.strength;
+                    currentPick = this;
+                    this.pickButton.style.backgroundColor = "lightblue";
+                }
+                else {
+                    console.log(`Pick of strength ${this.strength} deselected.`);
+                    currentPressure = 0;
+                    currentPick = null;
+                    this.pickButton.style.backgroundColor = "black"
+
+                }
+            }
+        }
+
 
         function newLock() {
             console.log("New Lock Created"); // Placeholder functionality
@@ -193,7 +247,27 @@
             console.log("Showing Statistics"); // Placeholder functionality
         }
 
+        function makePicks() {
+            let startingValues = [3, 4, 5, 6, 7, 8]; // three of these are picked at random, turned into buttons
+            for (let i = 0; i < 3; i++) {
+                let randIndex = Math.floor(Math.random() * startingValues.length);
+                let pickStrength = startingValues[randIndex];
+                startingValues.splice(randIndex, 1); // remove selected value to avoid duplicates
+                let newPick = new lockPick(pickStrength);
+                picksPouch.push(newPick);
 
+                let pickBtn = document.createElement("button");
+                pickBtn.className = "pickButton";
+                pickBtn.innerText = `Pick Strength: ${pickStrength}`;
+                pickBtn.addEventListener("click", () => {
+                    newPick.toggleSelect();
+                    console.log(`Pick of strength ${pickStrength} selected: ${newPick.selected}`);
+                });
+                newPick.pickButton = pickBtn;
+                pickContainer.appendChild(pickBtn);
+            }
+        }
+        makePicks();
     </script>
 </body>
 
