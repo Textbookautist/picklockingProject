@@ -1,0 +1,85 @@
+class Lock {
+    timeSpent = 0;
+    difficulty = 0;
+    pinNumber = 0;
+    pins = []; // array of lockPin objects
+    clock = null // element to show clock
+    screen = null // element to show lock screen
+    pinInfo = null // element to show pin information
+    unlocked = false;
+    constructor(difficulty, pinNumber) {
+        this.timeSpent = 0;
+        this.difficulty = difficulty;
+        this.pinNumber = pinNumber;
+        for (let i = 0; i < pinNumber; i++) {
+            this.pins.push(new LockPin(i, difficulty));
+        }
+        this.addThisToPins()
+    }
+    addThisToPins() {
+        this.pins.forEach(pin => {
+            pin.addParentLock(this);
+        });
+    }
+    displayInfo() {
+        console.log(`Lock Difficulty: ${this.difficulty}, Number of Pins: ${this.pinNumber}`);
+        this.pins.forEach(pin => pin.displayInfo());
+    }
+    signalPinUnlocked(sourcePin) {
+        console.log(`Lock received unlock signal from Pin ${sourcePin.position}`);
+        let allUnlocked = this.pins.every(pin => pin.unlocked);
+        if (allUnlocked) {
+            console.log("Lock fully unlocked!");
+            unlockedamount++;
+            this.unlocked = true;
+        }
+    }
+    startCounting() {
+        this.timeSpent = 0
+        setInterval(() => {
+            if (this.unlocked) { return; } // stop counting if unlocked
+            this.timeSpent += 1000;
+            let seconds = this.timeSpent / 1000;
+            let minutes = 0
+            if (seconds > 60) {
+                while (seconds > 60) {
+                    seconds -= 60;
+                    minutes += 1;
+                }
+            }
+
+            if (minutes == 0) { this.clock.innerText = `Time Spent: ${seconds} seconds`; }
+            else { this.clock.innerText = `Time Spent: ${minutes} minutes and ${seconds} seconds`; }
+
+        }, 1000);
+    }
+    applyPressureToSelectedPin(pressure) {
+        let selectedPin = this.pins.find(pin => pin.selected);
+        if (selectedPin) {
+            selectedPin.applyPressure(pressure);
+        }
+    }
+    addScreen(screenElement) {
+        this.screen = screenElement;
+    }
+    addClock(clockElement) {
+        this.clock = clockElement;
+    }
+    addPinInformation(pinInfoElement) {
+        this.pinInfo = pinInfoElement;
+    }
+    updatePinInformation(info) {
+        this.pinInfo.innerText = info;
+    }
+    reset() { // can reset due to overpressure, or changing a pin while it has pressure applied to it
+        console.log("Lock resetting due to overpressure or pin change.");
+        this.pins.forEach(pin => {
+            pin.appliedPressure = 0;
+            pin.unlocked = false;
+            if (pin.pinButton) {
+                pin.pinButton.style.backgroundColor = "#4CAF50";
+            }
+        });
+        this.updatePinInformation("Lock Reset. All pins set to 0 pressure.");
+    }
+}
