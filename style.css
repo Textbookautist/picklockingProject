@@ -1,22 +1,22 @@
 body {
-    background-color: darkslategray;
+    background-color: #503fa0;
 }
 
 .controlBtn {
-    color: black;
-    background-color: gray;
+    color: white;
+    background-color: #6495ed;
     width: 64px;
 }
 
 .standardBtn {
-    background-color: gray;
+    background-color: #6495ed;
 }
 
 .circularBtn {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #4CAF50;
+    background-color: #32bb84;
     color: white;
     border: none;
     font-size: 16px;
