@@ -1,15 +1,13 @@
 //statistics, no way to save yet.
-let unlockedamount = 0;
-let totalPickUses = 0;
-let totalTimeSpent = 0;
+var unlockedamount = 0; // Var instead of let, so the statistics script can see it.
+var totalPickUses = 0;
+var totalTimeSpent = 0;
 
 let picksAvailable = 0;
 let picksPouch = [];
 
 const newLockBtn = document.getElementById("newLockBtn");
 newLockBtn.addEventListener("click", newLock);
-const statisticsBtn = document.getElementById("statisticsBtn");
-statisticsBtn.addEventListener("click", showStatistics);
 
 const pickContainer = document.getElementById("pickContainer"); //holds available picks
 
@@ -84,10 +82,6 @@ function newLock() {
         }
     });
     quickdiv2.appendChild(applyPressureBtn);
-}
-
-function showStatistics() {
-    console.log("Showing Statistics"); // Placeholder functionality
 }
 
 function makePicks() {
