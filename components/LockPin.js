@@ -46,7 +46,7 @@ class LockPin {
     applyPressure(currentPressure) {
         this.appliedPressure += currentPressure
         if (this.appliedPressure > this.pressureTreshold) {
-            parentLock.reset();
+            this.parentLock.reset();
         }
         else if (this.appliedPressure === this.pressureTreshold) {
             this.unlocked = true;
