@@ -23,7 +23,7 @@ let currentPick = null
 
 function newLock() {
     console.log("New Lock Created"); // Placeholder functionality
-    lock = new Lock(3, 5); // Example: difficulty 3, 5 pins
+    lock = new Lock(3, 5); // Example: difficulty 3, 5 pins (Current standard so should probably leave 3 as the minimum)
     lock.displayInfo();
 
     let lockbase = document.createElement("div");
