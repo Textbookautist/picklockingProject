@@ -39,6 +39,7 @@ class Lock {
         setInterval(() => {
             if (this.unlocked) { return; } // stop counting if unlocked
             this.timeSpent += 1000;
+            totalTimeSpent += 1;
             let seconds = this.timeSpent / 1000;
             let minutes = 0
             if (seconds > 60) {
@@ -54,6 +55,7 @@ class Lock {
         }, 1000);
     }
     applyPressureToSelectedPin(pressure) {
+        totalPickUses++;
         let selectedPin = this.pins.find(pin => pin.selected);
         if (selectedPin) {
             selectedPin.applyPressure(pressure);

@@ -9,6 +9,8 @@ let picksPouch = [];
 const newLockBtn = document.getElementById("newLockBtn");
 newLockBtn.addEventListener("click", newLock);
 
+var flexibleContainer = document.getElementById("flexibleContainer");
+
 const pickContainer = document.getElementById("pickContainer"); //holds available picks
 
 const lockContainer = document.getElementById("lockContainer"); // holds the lock

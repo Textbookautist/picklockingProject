@@ -1,5 +1,6 @@
 body {
     background-color: darkslategray;
+    padding-top: 50px;
 }
 
 #lockContainer {
@@ -28,20 +29,18 @@ body {
 }
 
 #flexibleContainer {
-    height: auto;
     display: block;
-    /* make sure it shows up */
     width: 80%;
     /* or any width you like */
-    min-height: 100px;
-    /* ensures it’s visible even when empty */
     margin: 20px auto;
-    /* centers it horizontally */
+    /* auto left/right centers it */
     background-color: red;
-    /* so you can see it clearly */
     border: 2px solid black;
-    /* outline for visibility */
+    text-align: center;
+    /* optional: center text inside */
 }
+
+
 
 .controlBtn {
     color: black;
@@ -69,7 +68,7 @@ body {
 
 #pickContainer {
     position: relative;
-    margin: 100px auto 20px auto;
+    margin: 20px auto 20px auto;
     /* Push it down below controls */
     width: 80%;
     display: flex;
