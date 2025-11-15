@@ -27,10 +27,26 @@ body {
     z-index: 1000;
 }
 
+#flexibleContainer {
+    height: auto;
+    display: block;
+    /* make sure it shows up */
+    width: 80%;
+    /* or any width you like */
+    min-height: 100px;
+    /* ensures it’s visible even when empty */
+    margin: 20px auto;
+    /* centers it horizontally */
+    background-color: red;
+    /* so you can see it clearly */
+    border: 2px solid black;
+    /* outline for visibility */
+}
+
 .controlBtn {
     color: black;
     background-color: gray;
-    width: 64px;
+    width: 128px;
     height: 64px;
     border: none;
     font-size: 14px;
