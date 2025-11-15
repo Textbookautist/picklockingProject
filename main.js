@@ -70,7 +70,7 @@ function newLock() {
     quickdiv2.appendChild(pinInformation);
 
     let applyPressureBtn = document.createElement("button");
-    applyPressureBtn.className = "controlBtn";
+    applyPressureBtn.className = "pickLockButton";
     applyPressureBtn.innerText = "PICK!";
     applyPressureBtn.addEventListener("click", () => {
         if (lock) {
@@ -84,7 +84,7 @@ function newLock() {
     quickdiv2.appendChild(applyPressureBtn);
 }
 
-function makePicks() {
+async function makePicks() {
     let startingValues = [3, 4, 5, 6, 7, 8]; // three of these are picked at random, turned into buttons
     let createdButtons = [];
     for (let i = 0; i < 3; i++) {
