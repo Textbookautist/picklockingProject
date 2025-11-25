@@ -1,5 +1,6 @@
 body {
-    background-color: #503fa0;
+    background: #4732A4;
+    background: radial-gradient(circle, rgba(71, 50, 164, 1) 0%, rgba(10, 10, 64, 1) 100%);
     padding-top: 50px;
 }
 
@@ -97,7 +98,11 @@ body {
 }
 
 .lockBase {
-    background-color: yellow;
+    border-radius: 25px;
+    background: #808080;
+    background: linear-gradient(90deg, rgba(128, 128, 128, 1) 0%,
+    rgba(153, 153, 153, 1) 5%, rgba(206, 206, 206, 1) 35%, rgba(230, 230, 230, 1) 50%,
+    rgba(206, 206, 206, 1) 65%, rgba(153, 153, 153, 1) 95%, rgba(128, 128, 128, 1) 100%);
     width: 450px;
     height: 450px;
     display: flex;
@@ -129,6 +134,7 @@ body {
 
 .lockClock {
     align-items: start;
+    justify-content: center;
     top: 10px;
     right: 10px;
     color: white;
