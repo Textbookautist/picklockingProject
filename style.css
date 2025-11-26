@@ -16,7 +16,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background-color: lightgray;
+    background-color: black 0%;
 }
 
 #topControls {
@@ -26,10 +26,12 @@ body {
     transform: translateX(-50%);
     display: flex;
     gap: 10px;
+    padding-bottom: 25px;
     z-index: 1000;
 }
 
 #flexibleContainer {
+    border-radius: 25px;
     display: block;
     width: 80%;
     /* or any width you like */
@@ -44,9 +46,10 @@ body {
 
 
 .controlBtn {
+    border-radius: 10px;
     color: white;
-    background-color: #6495ed;
-    width: 64px;
+    background-color: black;
+    width: 128px;
     height: 64px;
     border: none;
     font-size: 14px;
@@ -60,15 +63,18 @@ body {
 }
 
 .controlBtn:hover {
-    background-color: lightgray;
+    background-color: #B3B3F1;
+    color: black;
 }
 
 .controlBtn:active {
-    background-color: darkgray;
+    background-color: #EEE82C;
+    color: black;
 }
 
 #pickContainer {
     position: relative;
+    margin-top: 20px;
     margin: 20px auto 20px auto;
     /* Push it down below controls */
     width: 80%;
@@ -80,15 +86,16 @@ body {
 
 
 .standardBtn {
-    background-color: #6495ed;
+    border-radius: 25px;
+    background-color: #20A39E;
 }
 
 .circularBtn {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #32bb84;
-    color: white;
+    background-color: #EEE82C;
+    color: black;
     border: none;
     font-size: 16px;
     cursor: pointer;
@@ -99,10 +106,7 @@ body {
 
 .lockBase {
     border-radius: 25px;
-    background: #808080;
-    background: linear-gradient(90deg, rgba(128, 128, 128, 1) 0%,
-    rgba(153, 153, 153, 1) 5%, rgba(206, 206, 206, 1) 35%, rgba(230, 230, 230, 1) 50%,
-    rgba(206, 206, 206, 1) 65%, rgba(153, 153, 153, 1) 95%, rgba(128, 128, 128, 1) 100%);
+    background: black;
     width: 450px;
     height: 450px;
     display: flex;
@@ -114,18 +118,21 @@ body {
 .pinRow {
     display: flex;
     gap: 10px;
+    margin-top: 25px;
     margin-bottom: 10px;
     flex-direction: row;
 }
 
 .lockScreen {
+    border-radius: 25px;
     top: 0;
     left: 0;
     width: 300px;
     height: 200px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0);
     display: flex;
     align-items: center;
+    text-align: center;
     justify-content: center;
     color: white;
     font-size: 24px;
@@ -136,15 +143,15 @@ body {
     align-items: start;
     justify-content: center;
     top: 10px;
-    right: 10px;
     color: white;
     font-size: 18px;
 }
 
 .pickButton {
+    border-radius: 10px;
     width: 100px;
     height: 50px;
-    background-color: black;
+    background-color: #20A39E;
     border: none;
     color: white;
     font-size: 16px;
@@ -153,11 +160,12 @@ body {
 }
 
 .pickLockButton {
+    border-radius: 15px;
     width: 150px;
     height: 75px;
-    background-color: darkblue;
+    background-color: #B3B3F1;
     border: none;
-    color: white;
+    color: black;
     font-size: 20px;
     cursor: pointer;
     display: flex;
