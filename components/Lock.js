@@ -42,15 +42,15 @@ class Lock {
             totalTimeSpent += 1;
             let seconds = this.timeSpent / 1000;
             let minutes = 0
-            if (seconds > 60) {
-                while (seconds > 60) {
+            if (seconds > 59) {
+                while (seconds > 59) {
                     seconds -= 60;
                     minutes += 1;
                 }
             }
 
-            if (minutes == 0) { this.clock.innerText = `Time Spent: ${seconds} seconds`; }
-            else { this.clock.innerText = `Time Spent: ${minutes} minutes and ${seconds} seconds`; }
+            if (minutes == 0) { this.clock.innerText = `Time spent: ${seconds}`; }
+            else { this.clock.innerText = `Time spent: ${minutes}:${seconds}`; }
 
         }, 1000);
     }
@@ -79,7 +79,8 @@ class Lock {
             pin.appliedPressure = 0;
             pin.unlocked = false;
             if (pin.pinButton) {
-                pin.pinButton.style.backgroundColor = "#4CAF50";
+                pin.pinButton.style.backgroundColor = "#EEE82C";
+                pin.pinButton.style.color = "black";
             }
         });
         this.updatePinInformation("Lock Reset. All pins set to 0 pressure.");
