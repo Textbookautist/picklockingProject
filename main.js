@@ -28,7 +28,7 @@ function newLock() {
 
     let lockbase = document.createElement("div");
     lockbase.className = "lockBase";
-    lockContainer.innerHTML = ""; // Clear previous lock);
+    lockContainer.innerHTML = ""; // Clear previous lock
     lockContainer.appendChild(lockbase);
 
     let pinrow = document.createElement("div");
@@ -63,7 +63,7 @@ function newLock() {
     lock.startCounting();
 
     let quickdiv2 = document.createElement("div");
-    quickdiv2.style.position = "absolute";
+    quickdiv2.style.position = "relative";
     quickdiv2.style.bottom = "10px";
     quickdiv2.style.left = "10px";
     lockScreen.appendChild(quickdiv2);
@@ -73,7 +73,7 @@ function newLock() {
 
     let applyPressureBtn = document.createElement("button");
     applyPressureBtn.className = "pickLockButton";
-    applyPressureBtn.innerText = "PICK!";
+    applyPressureBtn.innerText = "Pick";
     applyPressureBtn.addEventListener("click", () => {
         if (lock) {
             if (currentPressure === 0) {
@@ -84,6 +84,9 @@ function newLock() {
         }
     });
     quickdiv2.appendChild(applyPressureBtn);
+    lockbase.insertBefore(pickContainer, lockbase.firstChild);
+    // make the pick container visible now that it's placed inside the lock
+    pickContainer.style.display = "flex";
 }
 
 async function makePicks() {
