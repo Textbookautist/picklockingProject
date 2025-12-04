@@ -29,7 +29,8 @@ class LockPin {
         this.selected = !this.selected;
         if (this.selected) {
             this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
-            this.pinButton.style.backgroundColor = "red";
+            this.pinButton.style.backgroundColor = "#C61A4B";
+            this.pinButton.style.color = "white";
             this.parentLock.pins.forEach(pin => {
                 if (pin !== this && pin.selected) {
                     pin.toggleSelect();
@@ -37,7 +38,8 @@ class LockPin {
             });
         }
         else {
-            this.pinButton.style.backgroundColor = "#4CAF50";
+            this.pinButton.style.backgroundColor = "#EEE82C";
+            this.pinButton.style.color = "black";
             if (this.appliedPressure > 0) {
                 this.parentLock.reset()
             }
@@ -53,7 +55,8 @@ class LockPin {
             this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
             console.log(`Pin ${this.position} unlocked!`);
             this.selected = false;
-            this.pinButton.style.backgroundColor = "gray";
+            this.pinButton.style.backgroundColor = "#20a396";
+            this.pinButton.style.color = "white";
             this.parentLock.signalPinUnlocked(this);
         }
         this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
