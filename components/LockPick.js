@@ -14,13 +14,15 @@ class LockPick {
             console.log(`Pick of strength ${this.strength} selected.`);
             currentPressure = this.strength;
             currentPick = this;
-            this.pickButton.style.backgroundColor = "lightblue";
+            this.pickButton.style.backgroundColor = "#20a396";
+            this.pickButton.style.color = "white";
         }
         else {
             console.log(`Pick of strength ${this.strength} deselected.`);
             currentPressure = 0;
             currentPick = null;
-            this.pickButton.style.backgroundColor = "black"
+            this.pickButton.style.backgroundColor = "#B3B3F1";
+            this.pickButton.style.color = "black";
 
         }
     }
