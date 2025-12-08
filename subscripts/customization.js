@@ -36,6 +36,9 @@ function openCustomizationMenu() {
 
     const difficultyLabel = document.createElement("label");
     difficultyLabel.innerText = "Difficulty (1-10): ";
+    difficultyLabel.style.fontFamily = "Jura, sans-serif";
+    difficultyLabel.style.fontSize = "16px";
+    difficultyLabel.style.margin = "0 10px";
     const difficultyInput = document.createElement("input");
     difficultyInput.type = "number";
     difficultyInput.min = "1";
