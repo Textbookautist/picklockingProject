@@ -2,10 +2,19 @@
 <html>
 
 <head>
+    <title>Pick a Lock</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
+    <div>
+        <h1>Pick a Lock</h1>
+    </div>
 
     <div id="topControls">
         <button id="newLockBtn" class="controlBtn">New Lock</button> <!-- Creates a new lock into the lockContainer-->
@@ -18,7 +27,6 @@
     </div>
     <div id="pickContainer"></div> <!-- Picks are inserted here -->
     <div id="lockContainer"></div> <!-- Lock is inserted here -->
-
 
     <script src="components/LockPick.js"></script> <!-- Gets the class for lockpicks -->
     <script src="components/LockPin.js"></script> <!-- Gets the class for the pins of a lock -->
