@@ -57,15 +57,12 @@ function newLock() {
     let quickdiv = document.createElement("div");
     quickdiv.style.position = "absolute";
     quickdiv.style.top = "10px";
-    quickdiv.style.right = "10px";
     lockScreen.appendChild(quickdiv);
     quickdiv.appendChild(lockclock);
     lock.startCounting();
 
     let quickdiv2 = document.createElement("div");
     quickdiv2.style.position = "relative";
-    quickdiv2.style.bottom = "10px";
-    quickdiv2.style.left = "10px";
     lockScreen.appendChild(quickdiv2);
     let pinInformation = document.createElement("p");
     lock.addPinInformation(pinInformation);
