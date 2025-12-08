@@ -29,7 +29,7 @@ class LockPin {
         this.selected = !this.selected;
         if (this.selected) {
             this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
-            this.pinButton.style.backgroundColor = "#C61A4B";
+            this.pinButton.style.backgroundColor = "#c61aa1";
             this.pinButton.style.color = "white";
             this.parentLock.pins.forEach(pin => {
                 if (pin !== this && pin.selected) {
