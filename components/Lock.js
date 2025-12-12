@@ -83,6 +83,6 @@ class Lock {
                 pin.pinButton.style.color = "black";
             }
         });
-        this.updatePinInformation("Lock Reset. All pins set to 0 pressure.");
+        console.log(("Lock Reset. All pins set to 0 pressure."));
     }
 }
