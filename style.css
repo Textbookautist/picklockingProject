@@ -65,9 +65,7 @@ h2, h3, h4, h5, h6, p, button {
     width: min(90%, 300px);
     margin: 1rem auto;
     flex-direction: column;
-    justify-content: left;
     align-items: center;
-    padding: 0.5rem;
     gap: 1rem;
     position: relative;
     z-index: 2;
@@ -132,7 +130,7 @@ h2, h3, h4, h5, h6, p, button {
 
 #pickContainer {
     display: flex;
-    margin: 1.5rem auto;
+    margin-top: 1.5rem;
     width: min(95%, 600px);
     display: flex;
     flex-wrap: wrap;
@@ -167,24 +165,27 @@ h2, h3, h4, h5, h6, p, button {
     border-radius: 25px;
     width: 100%;
     max-width: 350px;
-    height: 100%;
-    padding: 1.5rem;
+    height: auto;
+    padding: 0.3rem 0,3rem;
     background-color: rgba(0, 0, 0, 0);
     color: white;
     font-size: clamp(1rem, 2vw, 1.5rem);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     text-align: center;
 }
 
 .lockClock {
     position: relative;
-    top: 1rem;
-    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    margin: 0.5rem 0;
+    margin-top: 1rem;
+    font-size: clamp(0.9rem, 1.6vw, 1.1rem);
     color: white;
     text-align: center;
+    justify-items: center;
 }
+
 
 /* ---------------------------------------------------- */
 /* PICK LOCK BUTTONS                                    */
@@ -216,6 +217,7 @@ h2, h3, h4, h5, h6, p, button {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    margin-top: 0rem;
 }
 
 .pickLockButton:hover { opacity: 0.8; }
