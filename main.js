@@ -53,16 +53,6 @@ async function newLock() {
     lockbase.appendChild(lockScreen);
     lock.addScreen = lockScreen;
 
-    let lockclock = document.createElement("p"); //keeps time the lock tracks with startCounting()
-    lock.addClock(lockclock);
-    lockclock.className = "lockClock";
-    let quickdiv = document.createElement("div");
-    quickdiv.style.position = "absolute";
-    quickdiv.style.top = "10px";
-    lockScreen.appendChild(quickdiv);
-    quickdiv.appendChild(lockclock);
-    lock.startCounting();
-
     let quickdiv2 = document.createElement("div");
     quickdiv2.style.position = "relative";
     lockScreen.appendChild(quickdiv2);
@@ -92,6 +82,13 @@ async function newLock() {
     lockbase.insertBefore(pickContainer, lockScreen);
     // make the pick container visible inside the lock
     pickContainer.style.display = "flex";
+
+    // create and insert the lock clock so it's vertically between the pickContainer and the Pick button
+    let lockclock = document.createElement("p"); // keeps time the lock tracks with startCounting()
+    lockclock.className = "lockClock";
+    lock.addClock(lockclock);
+    lockbase.insertBefore(lockclock, lockScreen);
+    lock.startCounting();
 }
 
 async function makePicks() {
