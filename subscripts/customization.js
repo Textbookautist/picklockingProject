@@ -16,7 +16,16 @@ function extractCustomization() {
     console.log("Customization Extracted"); // Placeholder functionality
 }
 
+function changeDifficulty(newDifficulty) {
+    if (newDifficulty < 1) newDifficulty = 1;
+    if (newDifficulty > 10) newDifficulty = 10;
+    window.difficultysetting = newDifficulty;
+    console.log(`Difficulty changed to ${window.difficultysetting}`);
+}
+
 function closeCustomizationMenu() {
+    const difficultyInput = document.getElementById("difficultyInput");
+    changeDifficulty(difficultyInput.value)
     flexibleContainer.innerHTML = ""; // Clear customization menu
     flexibleContainer.style.height = "0px";
 }
@@ -42,8 +51,9 @@ function openCustomizationMenu() {
     const difficultyInput = document.createElement("input");
     difficultyInput.type = "number";
     difficultyInput.min = "1";
-    difficultyInput.max = "10";
-    difficultyInput.value = difficultyCustomization;
+    difficultyInput.max = "100";
+    difficultyInput.value = window.difficultysetting;
+    difficultyInput.id = "difficultyInput";
     difficultyLabel.appendChild(difficultyInput);
     flexibleContainer.appendChild(difficultyLabel);
 
