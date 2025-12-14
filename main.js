@@ -84,11 +84,13 @@ async function newLock() {
     });
     quickdiv2.appendChild(applyPressureBtn);
     
-    // create picks BEFORE inserting pickContainer
+    // create picks BEFORE inserting pickContainer into the lockBase
     await makePicks();
-    
-    lockbase.insertBefore(pickContainer, lockbase.firstChild);
-    // make the pick container visible
+
+    // insert the global pickContainer into the lock base between pinRow and lockScreen
+    // so picks are displayed vertically between the pins and the Pick button
+    lockbase.insertBefore(pickContainer, lockScreen);
+    // make the pick container visible inside the lock
     pickContainer.style.display = "flex";
 }
 
