@@ -18,7 +18,7 @@ function extractCustomization() {
 
 function changeDifficulty(newDifficulty) {
     if (newDifficulty < 1) newDifficulty = 1;
-    if (newDifficulty > 10) newDifficulty = 10;
+    if (newDifficulty > 100) newDifficulty = 100;
     window.difficultysetting = newDifficulty;
     console.log(`Difficulty changed to ${window.difficultysetting}`);
 }
@@ -44,7 +44,7 @@ function openCustomizationMenu() {
     flexibleContainer.appendChild(closeCustomizationBtn);
 
     const difficultyLabel = document.createElement("label");
-    difficultyLabel.innerText = "Difficulty (1-10): ";
+    difficultyLabel.innerText = "Difficulty (1-100): ";
     difficultyLabel.style.fontFamily = "Jura, sans-serif";
     difficultyLabel.style.fontSize = "18px";
     difficultyLabel.style.margin = "0 10px";
