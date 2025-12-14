@@ -12,7 +12,8 @@ function showStatistics() {
     console.log(`${unlockedamount}, ${totalPickUses}, ${totalTimeSpent}`)
     flexibleContainer.innerHTML = ""; // Clear previous content
     flexibleContainer.style.display = "flex";
-    flexibleContainer.style.height = "150px";
+    flexibleContainer.style.height = "120px";
+    flexibleContainer.style.alignItems = "center";
 
     const closeStatisticsBtn = document.createElement("button");
     closeStatisticsBtn.className = "controlBtn";
@@ -23,7 +24,6 @@ function showStatistics() {
     flexibleContainer.appendChild(closeStatisticsBtn);
     // next display unlockedamount, totalPickUses, totalTimeSpent
     const statsDiv = document.createElement("div");
-    statsDiv.style.marginTop = "10px";
     statsDiv.style.color = "white";
     statsDiv.innerHTML = `<p>Total Locks Unlocked: ${unlockedamount}</p>
                           <p>Total Pick Uses: ${totalPickUses}</p>
