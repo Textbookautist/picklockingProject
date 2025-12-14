@@ -15,14 +15,16 @@ const pickContainer = document.getElementById("pickContainer"); //holds availabl
 
 const lockContainer = document.getElementById("lockContainer"); // holds the lock
 
+// hide pickContainer at start
+pickContainer.style.display = "none";
+
 let lock = null;
 let currentPressure = 0;
 let currentPick = null
 
 window.difficultysetting = 3
 
-
-function newLock() {
+async function newLock() {
     console.log("New Lock Created"); // Placeholder functionality
     lock = new Lock(difficultysetting, 5); // Example: difficulty 3, 5 pins (Current standard so should probably leave 3 as the minimum)
     lock.displayInfo();
@@ -82,21 +84,27 @@ function newLock() {
         }
     });
     quickdiv2.appendChild(applyPressureBtn);
+    
+    // create picks BEFORE inserting pickContainer
+    await makePicks();
+    
     lockbase.insertBefore(pickContainer, lockbase.firstChild);
-    // make the pick container visible now that it's placed inside the lock
+    // make the pick container visible
     pickContainer.style.display = "flex";
 }
 
 async function makePicks() {
     let startingValues = [3, 4, 5, 6, 7, 8]; // three of these are picked at random, turned into buttons
     let createdButtons = [];
+    pickContainer.innerHTML = ""; // clear old picks first
+    picksPouch = [];
+    
     for (let i = 0; i < 3; i++) {
         let randIndex = Math.floor(Math.random() * startingValues.length);
         let pickStrength = startingValues[randIndex];
         startingValues.splice(randIndex, 1); // remove selected value to avoid duplicates
         let newPick = new LockPick(pickStrength);
         picksPouch.push(newPick);
-
 
         let pickBtn = document.createElement("button");
         pickBtn.className = "pickButton";
@@ -109,13 +117,13 @@ async function makePicks() {
         pickContainer.appendChild(pickBtn);
         createdButtons.push(pickBtn);
     }
+    
     // check that there are both buttons with odd and even values in the createdButtons
     let hasOdd = createdButtons.some(btn => parseInt(btn.innerText.split(": ")[1]) % 2 !== 0);
     let hasEven = createdButtons.some(btn => parseInt(btn.innerText.split(": ")[1]) % 2 === 0);
     if (!hasOdd || !hasEven) {
         pickContainer.innerHTML = ""; // clear picks
         picksPouch = []; // reset picks pouch
-        makePicks(); // try again
+        await makePicks(); // try again
     }
 }
-makePicks();

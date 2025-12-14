@@ -1,236 +1,225 @@
+/* ---------------------------------------------------- */
+/* BASE STYLES                                          */
+/* ---------------------------------------------------- */
+
 body {
-    background: #4732A4;
-    background: radial-gradient(circle, rgba(71, 50, 164, 1) 0%, rgba(10, 10, 64, 1) 100%);
-    padding-top: 50px;
+    background: radial-gradient(circle, rgba(71,50,164,1) 0%, rgba(10,10,64,1) 100%);
+    margin: 0;
+    font-family: "Jura", sans-serif;
 }
 
 h1 {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    font-family: "Jura", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
     text-align: center;
     color: white;
-    font-size: 40px;
-    margin-top: 20px;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    margin-bottom: 1.5rem;
 }
 
 h2, h3, h4, h5, h6, p, button {
-  font-family: "Jura", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
+    font-family: "Jura", sans-serif;
+    font-weight: 600;
 }
 
-#lockContainer {
-    width: 25%;
-    height: auto;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    background-color: black 0%;
-}
+/* ---------------------------------------------------- */
+/* RESPONSIVE TOP CONTROL BAR                           */
+/* ---------------------------------------------------- */
 
 #topControls {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    padding-bottom: 25px;
-    z-index: 1000;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(80px, auto));
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    cursor: pointer;
+    z-index: 3;
 }
 
-#flexibleContainer {
-    border-radius: 25px;
+/* ---------------------------------------------------- */
+/* MAIN LOCK CONTAINER                                  */
+/* ---------------------------------------------------- */
+
+#lockContainer {
+    width: min(90%, 500px);
+    margin: 0 auto;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0);
     display: flex;
-    flex-direction: row;
-    width: 80%;
-    /* or any width you like */
-    margin: 20px auto;
-    /* auto left/right centers it */
-    background-color: black;
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    /* optional: center text inside */
+    flex-direction: column;
+    position: relative;
+    gap: 1.2rem;
+    align-items: center;
 }
+
+/* ---------------------------------------------------- */
+/* FLEXIBLE SIDE PANEL                                  */
+/* ---------------------------------------------------- */
+
+#flexibleContainer {
+    display: flex; 
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    width: min(90%, 300px);
+    margin: 1rem auto;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    padding: 0.5rem;
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+
+
+/* ---------------------------------------------------- */
+/* BUTTONS                                              */
+/* ---------------------------------------------------- */
 
 .controlBtn {
     border-radius: 10px;
     background-color: #B3B3F1;
     color: black;
-    width: 128px;
-    height: 64px;
+    width: 100%;
+    max-width: 150px;
+    height: 48px;
+    font-size: 1rem;
     border: none;
-    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    line-height: 1;
-    padding: 0;
-    box-sizing: border-box;
+    cursor: pointer;
 }
 
-.controlBtn:hover {
-    background-color: #B3B3F1;
-    color: black;
-    opacity: 0.8;
-}
-
+.controlBtn:hover { opacity: 0.8; }
 .controlBtn:active {
     background-color: #c61aa1;
     color: white;
     opacity: 1;
 }
 
-#pickContainer {
-    display: none; /* hide until New Lock is pressed */
-    position: relative;
-    margin-top: 20px;
-    margin: 20px auto 20px auto;
-    /* Push it down below controls */
-    width: 80%;
-    justify-content: center;
-    gap: 10px;
-    z-index: 1;
-}
-
-
 .standardBtn {
     border-radius: 25px;
     background-color: #20A39E;
-    font-size: 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    justify-content: center;
 }
 
 .circularBtn {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background-color: #EEE82C;
     color: black;
     border: none;
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: 700;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
-.circularBtn:hover {
-    background-color: #EEE82C;
-    color: black;
-    opacity: 0.8;
+.circularBtn:hover { opacity: 0.8; }
+
+/* ---------------------------------------------------- */
+/* PICK CONTAINER                                       */
+/* ---------------------------------------------------- */
+
+#pickContainer {
+    display: flex;
+    margin: 1.5rem auto;
+    width: min(95%, 600px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
 }
 
-.circularBtn::selection {
-    background-color: #c61aa1;
-    color: white;
-    opacity: 1;
-}
+/* ---------------------------------------------------- */
+/* LOCK BODY / SCREEN                                    */
+/* ---------------------------------------------------- */
 
 .lockBase {
     border-radius: 25px;
-    background: #5c44c7;
-    border: #B3B3F1;
-    border-style: solid;
-    stroke-width: 15px;
-    width: 450px;
-    height: 450px;
+    background: rgb(13, 13, 85);
+    border: 3px solid #B3B3F1;
+    width: 100%;
+    max-width: 450px;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    position: absolute;
 }
 
 .pinRow {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    margin-top: 25px;
-    margin-bottom: 10px;
-    flex-direction: row;
+    margin-top: 1.5rem;
 }
 
 .lockScreen {
     border-radius: 25px;
-    top: 0;
-    left: 0;
-    width: 300px;
-    height: 200px;
+    width: 100%;
+    max-width: 350px;
+    height: 100%;
+    padding: 1.5rem;
     background-color: rgba(0, 0, 0, 0);
+    color: white;
+    font-size: clamp(1rem, 2vw, 1.5rem);
     display: flex;
+    justify-content: center;
     align-items: center;
     text-align: center;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-    position: relative;
 }
 
 .lockClock {
-    align-items: start;
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    text-align: center;
-    top: 10px;
+    position: relative;
+    top: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
     color: white;
-    font-size: 18px;
+    text-align: center;
 }
 
+/* ---------------------------------------------------- */
+/* PICK LOCK BUTTONS                                    */
+/* ---------------------------------------------------- */
+
 .pickButton {
-    display: flex;
     border-radius: 10px;
     width: 100px;
-    height: 50px;
+    height: 45px;
     background-color: #B3B3F1;
-    border: none;
     color: black;
-    font-size: 14px;
-    vertical-align: middle;
+    border: none;
+    font-size: 0.9rem;
     cursor: pointer;
 }
 
-.pickButton:hover {
-    opacity: 0.8;
-}
+.pickButton:hover { opacity: 0.8; }
 
 .pickLockButton {
     border-radius: 15px;
-    width: 150px;
-    height: 75px;
+    width: 140px;
+    height: 60px;
     background-color: #B3B3F1;
     border: none;
     color: black;
-    font-size: 20px;
+    font-size: 1.1rem;
     font-weight: bold;
-    cursor: pointer;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
-.pickLockButton:hover {
-    background-color: #B3B3F1;
-    color: black;
-    opacity: 0.8;
-}
-
+.pickLockButton:hover { opacity: 0.8; }
 .pickLockButton:active {
     background-color: #c61aa1;
     color: white;
-    opacity: 1;
 }
