@@ -22,6 +22,28 @@ class Lock {
         this.audioPin1 = new Audio("../assets/audioedits/pin-click.mp3");
         this.audioFail = new Audio("../assets/audioedits/lock-fail.mp3");
         this.audioOpenPin = new Audio("../assets/audioedits/pin-open.mp3");
+
+        this.cheatUnlockCounter = 0;
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Control") {
+                this.cheatDown = true;
+            }
+        });
+        window.addEventListener("keyup", (e) => {
+            if (e.key === "Control") {
+                this.cheatDown = false;
+            }
+        });
+    }
+    cheatUnlock() {
+        // unlock all pins immediately
+
+
+        this.pins.forEach(pin => {
+            pin.unlocked = true;
+        });
+        console.log("Lock cheat-unlocked!");
+        this.unlocked = true;
     }
     addThisToPins() {
         this.pins.forEach(pin => {
@@ -57,6 +79,11 @@ class Lock {
                 }
                 return;
             } // stop counting if unlocked
+            if (this.cheatDown) { this.cheatUnlockCounter++; }
+            else { this.cheatUnlockCounter = 0; }
+            if (this.cheatUnlockCounter >= 2) {
+                this.cheatUnlock();
+            }
             this.timeSpent += 1000;
             totalTimeSpent += 1;
             let totalSeconds = Math.floor(this.timeSpent / 1000);
