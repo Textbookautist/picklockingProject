@@ -14,7 +14,8 @@ class Lock {
         for (let i = 0; i < pinNumber; i++) {
             this.pins.push(new LockPin(i, difficulty));
         }
-        this.addThisToPins()
+        this.addThisToPins();
+        this.playWoah()
     }
     addThisToPins() {
         this.pins.forEach(pin => {
@@ -87,5 +88,11 @@ class Lock {
             }
         });
         console.log(("Lock Reset. All pins set to 0 pressure."));
+    }
+    playWoah() {
+        const woah = new Audio("../assets/audio/woah-group-sfx-442560.mp3");
+        const soundInstance = woah.cloneNode();
+        soundInstance.play();
+        soundInstance.addEventListener("ended", () => soundInstance.remove())
     }
 }
