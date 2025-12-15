@@ -14,7 +14,10 @@ class Lock {
         for (let i = 0; i < pinNumber; i++) {
             this.pins.push(new LockPin(i, difficulty));
         }
-        this.addThisToPins()
+        this.addThisToPins();
+        this.audioWoah = new Audio("../assets/audio/woah-group-sfx-442560.mp3");
+        this.playWoah()
+        this.audioUnlock1 = new Audio("../assets/audio/key-twist-in-lock-47832.mp3")
     }
     addThisToPins() {
         this.pins.forEach(pin => {
@@ -37,7 +40,12 @@ class Lock {
     startCounting() {
         this.timeSpent = 0
         setInterval(() => {
-            if (this.unlocked) { return; } // stop counting if unlocked
+            if (this.unlocked) {
+                const endsound = this.audioUnlock1.cloneNode();
+                endsound.play();
+                endsound.addEventListener("ended", () => endsound.remove());
+                this.audioUnlock1.remove()
+                return; } // stop counting if unlocked
             this.timeSpent += 1000;
             totalTimeSpent += 1;
             let totalSeconds = Math.floor(this.timeSpent / 1000);
@@ -87,5 +95,10 @@ class Lock {
             }
         });
         console.log(("Lock Reset. All pins set to 0 pressure."));
+    }
+    playWoah() {
+        const soundInstance = this.audioWoah.cloneNode();
+        soundInstance.play();
+        soundInstance.addEventListener("ended", () => soundInstance.remove())
     }
 }
