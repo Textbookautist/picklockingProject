@@ -35,6 +35,7 @@ class Lock {
     signalPinUnlocked(sourcePin) {
         const noise = this.audioOpenPin.cloneNode();
         noise.play();
+        noise.volume = 2.0;
         noise.addEventListener("ended", () => noise.remove())
         console.log(`Lock received unlock signal from Pin ${sourcePin.position}`);
         let allUnlocked = this.pins.every(pin => pin.unlocked);
@@ -77,6 +78,7 @@ class Lock {
     applyPressureToSelectedPin(pressure) {
         const noise = this.audioPin1.cloneNode();
         noise.play();
+        noise.volume = 0.7;
         noise.addEventListener("ended", () => noise.remove())
         totalPickUses++;
         let selectedPin = this.pins.find(pin => pin.selected);
