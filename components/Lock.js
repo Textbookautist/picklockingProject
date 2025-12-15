@@ -18,7 +18,7 @@ class Lock {
         this.addThisToPins();
         this.audioWoah = new Audio("assets/audioedits/new-lock.mp3");
         this.audioWoah.preload = "auto";
-        this.playWoah();
+
         this.audioUnlock1 = new Audio("assets/audioedits/lock-open.mp3");
         this.audioUnlock1.preload = "auto";
         this.audioPin1 = new Audio("assets/audioedits/pin-click.mp3");
@@ -33,6 +33,7 @@ class Lock {
         this.audioPin1Server = new Audio("../assets/audioedits/pin-click.mp3");
         this.audioFailServer = new Audio("../assets/audioedits/lock-fail.mp3");
         this.audioOpenPinServer = new Audio("../assets/audioedits/pin-open.mp3");
+        this.playWoah();
 
         this.cheatUnlockCounter = 0;
         window.addEventListener("keydown", (e) => {
