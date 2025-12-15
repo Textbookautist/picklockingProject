@@ -25,8 +25,11 @@ function showStatistics() {
     // next display unlockedamount, totalPickUses, totalTimeSpent
     const statsDiv = document.createElement("div");
     statsDiv.style.color = "white";
-    statsDiv.innerHTML = `<p>Total Locks Unlocked: ${unlockedamount}</p>
-                          <p>Total Pick Uses: ${totalPickUses}</p>
-                          <p>Total Time Spent Picking: ${totalTimeSpent} seconds</p>`;
+        const minutes = Math.floor(totalTimeSpent / 60);
+        const seconds = totalTimeSpent % 60;
+        const secondsPadded = String(seconds).padStart(2, '0');
+        statsDiv.innerHTML = `<p>Total Locks Unlocked: ${unlockedamount}</p>
+                              <p>Total Pick Uses: ${totalPickUses}</p>
+                              <p>Total Time Spent Picking: ${minutes}:${secondsPadded}</p>`;
     flexibleContainer.appendChild(statsDiv);
 }
