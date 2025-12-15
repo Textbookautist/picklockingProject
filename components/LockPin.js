@@ -57,6 +57,9 @@ class LockPin {
             this.selected = false;
             this.pinButton.style.backgroundColor = "#20a396";
             this.pinButton.style.color = "white";
+            if (this.pinButton) {
+                this.pinButton.innerText = "✓";
+            }
             this.parentLock.signalPinUnlocked(this);
         }
         this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
