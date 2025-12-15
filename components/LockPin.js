@@ -64,8 +64,4 @@ class LockPin {
         }
         this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
     }
-    cheatUnlock() {
-        this.unlocked = true;
-        this.parentLock.signalPinUnlocked(this);
-    }
 }
