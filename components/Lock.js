@@ -15,9 +15,11 @@ class Lock {
             this.pins.push(new LockPin(i, difficulty));
         }
         this.addThisToPins();
-        this.audioWoah = new Audio("../assets/audio/woah-group-sfx-442560.mp3");
-        this.playWoah()
-        this.audioUnlock1 = new Audio("../assets/audio/key-twist-in-lock-47832.mp3")
+        this.audioWoah = new Audio("../assets/audioedits/new-lock.mp3");
+        this.playWoah();
+        this.audioUnlock1 = new Audio("../assets/audioedits/lock-open.mp3");
+        this.audioPin1 = new Audio("../assets/audioedits/pin-click.mp3");
+        this.audioFail = new Audio("../assets/audioedits/lock-fail.mp3")
     }
     addThisToPins() {
         this.pins.forEach(pin => {
@@ -44,7 +46,7 @@ class Lock {
                 const endsound = this.audioUnlock1.cloneNode();
                 endsound.play();
                 endsound.addEventListener("ended", () => endsound.remove());
-                this.audioUnlock1.remove()
+                this.audioUnlock1.remove();
                 return; } // stop counting if unlocked
             this.timeSpent += 1000;
             totalTimeSpent += 1;
@@ -65,6 +67,9 @@ class Lock {
         }, 1000);
     }
     applyPressureToSelectedPin(pressure) {
+        const noise = this.audioPin1.cloneNode();
+        noise.play();
+        noise.addEventListener("ended", () => noise.remove())
         totalPickUses++;
         let selectedPin = this.pins.find(pin => pin.selected);
         if (selectedPin) {
@@ -84,6 +89,9 @@ class Lock {
         this.pinInfo.innerText = info;
     }
     reset() { // can reset due to overpressure, or changing a pin while it has pressure applied to it
+        const noise = this.audioFail.cloneNode();
+        noise.play();
+        noise.addEventListener("ended", () => noise.remove())
         console.log("Lock resetting due to overpressure or pin change.");
         this.pins.forEach(pin => {
             pin.appliedPressure = 0;
