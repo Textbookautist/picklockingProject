@@ -8,6 +8,7 @@ class Lock {
     pinInfo = null // element to show pin information
     unlocked = false;
     constructor(difficulty, pinNumber) {
+        this.partyPlayed = false;
         this.timeSpent = 0;
         this.difficulty = difficulty;
         this.pinNumber = pinNumber;
@@ -19,7 +20,8 @@ class Lock {
         this.playWoah();
         this.audioUnlock1 = new Audio("../assets/audioedits/lock-open.mp3");
         this.audioPin1 = new Audio("../assets/audioedits/pin-click.mp3");
-        this.audioFail = new Audio("../assets/audioedits/lock-fail.mp3")
+        this.audioFail = new Audio("../assets/audioedits/lock-fail.mp3");
+        this.audioOpenPin = new Audio("../assets/audioedits/pin-open.mp3");
     }
     addThisToPins() {
         this.pins.forEach(pin => {
@@ -31,6 +33,9 @@ class Lock {
         this.pins.forEach(pin => pin.displayInfo());
     }
     signalPinUnlocked(sourcePin) {
+        const noise = this.audioOpenPin.cloneNode();
+        noise.play();
+        noise.addEventListener("ended", () => noise.remove())
         console.log(`Lock received unlock signal from Pin ${sourcePin.position}`);
         let allUnlocked = this.pins.every(pin => pin.unlocked);
         if (allUnlocked) {
@@ -43,11 +48,14 @@ class Lock {
         this.timeSpent = 0
         setInterval(() => {
             if (this.unlocked) {
-                const endsound = this.audioUnlock1.cloneNode();
-                endsound.play();
-                endsound.addEventListener("ended", () => endsound.remove());
-                this.audioUnlock1.remove();
-                return; } // stop counting if unlocked
+                if (!this.partyPlayed) {
+                    const noise = this.audioUnlock1.cloneNode();
+                    noise.play();
+                    noise.addEventListener("ended", () => noise.remove())
+                    this.partyPlayed = true;
+                }
+                return;
+            } // stop counting if unlocked
             this.timeSpent += 1000;
             totalTimeSpent += 1;
             let totalSeconds = Math.floor(this.timeSpent / 1000);
