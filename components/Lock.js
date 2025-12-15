@@ -16,12 +16,23 @@ class Lock {
             this.pins.push(new LockPin(i, difficulty));
         }
         this.addThisToPins();
-        this.audioWoah = new Audio("../assets/audioedits/new-lock.mp3");
+        this.audioWoah = new Audio("assets/audioedits/new-lock.mp3");
+        this.audioWoah.preload = "auto";
         this.playWoah();
-        this.audioUnlock1 = new Audio("../assets/audioedits/lock-open.mp3");
-        this.audioPin1 = new Audio("../assets/audioedits/pin-click.mp3");
-        this.audioFail = new Audio("../assets/audioedits/lock-fail.mp3");
-        this.audioOpenPin = new Audio("../assets/audioedits/pin-open.mp3");
+        this.audioUnlock1 = new Audio("assets/audioedits/lock-open.mp3");
+        this.audioUnlock1.preload = "auto";
+        this.audioPin1 = new Audio("assets/audioedits/pin-click.mp3");
+        this.audioPin1.preload = "auto";
+        this.audioFail = new Audio("assets/audioedits/lock-fail.mp3");
+        this.audioFail.preload = "auto";
+        this.audioOpenPin = new Audio("assets/audioedits/pin-open.mp3");
+        this.audioOpenPin.preload = "auto";
+
+        this.audioWoahServer = new Audio("../assets/audioedits/new-lock.mp3");
+        this.audioUnlock1Server = new Audio("../assets/audioedits/lock-open.mp3");
+        this.audioPin1Server = new Audio("../assets/audioedits/pin-click.mp3");
+        this.audioFailServer = new Audio("../assets/audioedits/lock-fail.mp3");
+        this.audioOpenPinServer = new Audio("../assets/audioedits/pin-open.mp3");
 
         this.cheatUnlockCounter = 0;
         window.addEventListener("keydown", (e) => {
@@ -37,13 +48,11 @@ class Lock {
     }
     cheatUnlock() {
         // unlock all pins immediately
-
-
         this.pins.forEach(pin => {
-            pin.unlocked = true;
+            pin.applyPressure(pin.pressureTreshold - pin.appliedPressure);
         });
-        console.log("Lock cheat-unlocked!");
-        this.unlocked = true;
+        //console.log("Lock cheat-unlocked!");
+        //this.unlocked = true;
     }
     addThisToPins() {
         this.pins.forEach(pin => {
@@ -59,6 +68,12 @@ class Lock {
         noise.play();
         noise.volume = 2.0;
         noise.addEventListener("ended", () => noise.remove())
+
+        const noiseServer = this.audioOpenPinServer.cloneNode();
+        noiseServer.play();
+        noiseServer.volume = 2.0;
+        noiseServer.addEventListener("ended", () => noiseServer.remove())
+
         console.log(`Lock received unlock signal from Pin ${sourcePin.position}`);
         let allUnlocked = this.pins.every(pin => pin.unlocked);
         if (allUnlocked) {
@@ -76,6 +91,10 @@ class Lock {
                     noise.play();
                     noise.addEventListener("ended", () => noise.remove())
                     this.partyPlayed = true;
+
+                    const noiseServer = this.audioUnlock1Server.cloneNode();
+                    noiseServer.play();
+                    noiseServer.addEventListener("ended", () => noiseServer.remove())
                 }
                 return;
             } // stop counting if unlocked
@@ -128,7 +147,14 @@ class Lock {
     reset() { // can reset due to overpressure, or changing a pin while it has pressure applied to it
         const noise = this.audioFail.cloneNode();
         noise.play();
+        noise.volume = 0.7;
         noise.addEventListener("ended", () => noise.remove())
+
+        const noiseServer = this.audioFailServer.cloneNode();
+        noiseServer.play();
+        noiseServer.volume = 0.7;
+        noiseServer.addEventListener("ended", () => noiseServer.remove())
+
         console.log("Lock resetting due to overpressure or pin change.");
         this.pins.forEach(pin => {
             pin.appliedPressure = 0;
@@ -144,6 +170,12 @@ class Lock {
     playWoah() {
         const soundInstance = this.audioWoah.cloneNode();
         soundInstance.play();
+        soundInstance.volume = 0.5;
         soundInstance.addEventListener("ended", () => soundInstance.remove())
+
+        const soundInstanceServer = this.audioWoahServer.cloneNode();
+        soundInstanceServer.play();
+        soundInstanceServer.volume = 0.5;
+        soundInstanceServer.addEventListener("ended", () => soundInstanceServer.remove())
     }
 }
