@@ -40,8 +40,9 @@ class Lock {
             if (this.unlocked) { return; } // stop counting if unlocked
             this.timeSpent += 1000;
             totalTimeSpent += 1;
-            let seconds = this.timeSpent / 1000;
+            let totalSeconds = Math.floor(this.timeSpent / 1000);
             let minutes = 0
+            let seconds = totalSeconds;
             if (seconds > 59) {
                 while (seconds > 59) {
                     seconds -= 60;
@@ -49,8 +50,9 @@ class Lock {
                 }
             }
 
+            const secondsPadded = String(seconds).padStart(2, "0");
             if (minutes == 0) { this.clock.innerText = `Time spent: ${seconds}`; }
-            else { this.clock.innerText = `Time spent: ${minutes}:${seconds}`; }
+            else { this.clock.innerText = `Time spent: ${minutes}:${secondsPadded}`; }
 
         }, 1000);
     }
@@ -81,6 +83,7 @@ class Lock {
             if (pin.pinButton) {
                 pin.pinButton.style.backgroundColor = "#EEE82C";
                 pin.pinButton.style.color = "black";
+                pin.pinButton.innerText = `Pin ${pin.position}`;
             }
         });
         console.log(("Lock Reset. All pins set to 0 pressure."));
