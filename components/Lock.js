@@ -8,6 +8,7 @@ class Lock {
     pinInfo = null // element to show pin information
     unlocked = false;
     constructor(difficulty, pinNumber) {
+        const isServer = location.protocol.startsWith("http");
         this.partyPlayed = false;
         this.timeSpent = 0;
         this.difficulty = difficulty;
@@ -19,41 +20,27 @@ class Lock {
         this.audioWoah = new Audio("assets/audioedits/new-lock.mp3");
         this.audioWoah.preload = "auto";
 
-        this.audioUnlock1 = new Audio("assets/audioedits/lock-open.mp3");
-        this.audioUnlock1.preload = "auto";
-        this.audioPin1 = new Audio("assets/audioedits/pin-click.mp3");
-        this.audioPin1.preload = "auto";
-        this.audioFail = new Audio("assets/audioedits/lock-fail.mp3");
-        this.audioFail.preload = "auto";
-        this.audioOpenPin = new Audio("assets/audioedits/pin-open.mp3");
-        this.audioOpenPin.preload = "auto";
+        if (isServer) {
+            this.audioUnlock1 = new Audio("assets/audioedits/lock-open.mp3");
+            this.audioUnlock1.preload = "auto";
+            this.audioPin1 = new Audio("assets/audioedits/pin-click.mp3");
+            this.audioPin1.preload = "auto";
+            this.audioFail = new Audio("assets/audioedits/lock-fail.mp3");
+            this.audioFail.preload = "auto";
+            this.audioOpenPin = new Audio("assets/audioedits/pin-open.mp3");
+            this.audioOpenPin.preload = "auto";
+        } else {
+            this.audioWoah = new Audio("../assets/audioedits/new-lock.mp3");
+            this.audioUnlock1 = new Audio("../assets/audioedits/lock-open.mp3");
+            this.audioPin1 = new Audio("../assets/audioedits/pin-click.mp3");
+            this.audioFail = new Audio("../assets/audioedits/lock-fail.mp3");
+            this.audioOpenPin = new Audio("../assets/audioedits/pin-open.mp3");
+        }
 
-        this.audioWoahServer = new Audio("../assets/audioedits/new-lock.mp3");
-        this.audioUnlock1Server = new Audio("../assets/audioedits/lock-open.mp3");
-        this.audioPin1Server = new Audio("../assets/audioedits/pin-click.mp3");
-        this.audioFailServer = new Audio("../assets/audioedits/lock-fail.mp3");
-        this.audioOpenPinServer = new Audio("../assets/audioedits/pin-open.mp3");
+
+
         this.playWoah();
 
-        this.cheatUnlockCounter = 0;
-        window.addEventListener("keydown", (e) => {
-            if (e.key === "Control") {
-                this.cheatDown = true;
-            }
-        });
-        window.addEventListener("keyup", (e) => {
-            if (e.key === "Control") {
-                this.cheatDown = false;
-            }
-        });
-    }
-    cheatUnlock() {
-        // unlock all pins immediately
-        this.pins.forEach(pin => {
-            pin.applyPressure(pin.pressureTreshold - pin.appliedPressure);
-        });
-        //console.log("Lock cheat-unlocked!");
-        //this.unlocked = true;
     }
     addThisToPins() {
         this.pins.forEach(pin => {
@@ -173,7 +160,7 @@ class Lock {
         soundInstance.play();
         soundInstance.volume = 0.5;
         soundInstance.addEventListener("ended", () => soundInstance.remove())
-
+        // if soundinstance not playing on server, play this other one
         const soundInstanceServer = this.audioWoahServer.cloneNode();
         soundInstanceServer.play();
         soundInstanceServer.volume = 0.5;
