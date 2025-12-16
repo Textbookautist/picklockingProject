@@ -1,3 +1,233 @@
+/* ---------------------------------------------------- */
+/* BASE STYLES                                          */
+/* ---------------------------------------------------- */
+
 body {
-    background-color: darkslategray;
+    background: radial-gradient(circle, rgba(71,50,164,1) 0%, rgba(10,10,64,1) 100%);
+    margin: 0;
+    font-family: "Jura", sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    margin-bottom: 1.5rem;
+}
+
+h2, h3, h4, h5, h6, p, button {
+    font-family: "Jura", sans-serif;
+    font-weight: 600;
+}
+
+/* ---------------------------------------------------- */
+/* RESPONSIVE TOP CONTROL BAR                           */
+/* ---------------------------------------------------- */
+
+#topControls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(80px, auto));
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    cursor: pointer;
+    z-index: 3;
+}
+
+/* ---------------------------------------------------- */
+/* MAIN LOCK CONTAINER                                  */
+/* ---------------------------------------------------- */
+
+#lockContainer {
+    width: min(90%, 500px);
+    margin: 0 auto;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 1.2rem;
+    align-items: center;
+}
+
+/* ---------------------------------------------------- */
+/* FLEXIBLE SIDE PANEL                                  */
+/* ---------------------------------------------------- */
+
+#flexibleContainer {
+    display: flex; 
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    width: min(90%, 300px);
+    margin: 1rem auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+
+
+/* ---------------------------------------------------- */
+/* BUTTONS                                              */
+/* ---------------------------------------------------- */
+
+.controlBtn {
+    border-radius: 10px;
+    background-color: #B3B3F1;
+    color: black;
+    width: 100%;
+    max-width: 150px;
+    height: 48px;
+    font-size: 1rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.controlBtn:hover { opacity: 0.8; }
+.controlBtn:active {
+    background-color: #C61AA1;
+    outline: solid 1.5px white;
+    color: white;
+    opacity: 1;
+}
+
+.standardBtn {
+    border-radius: 25px;
+    background-color: #20A39E;
+    outline: solid 1.5px white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.circularBtn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #EEE82C;
+    padding: 1rem;
+    color: black;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.circularBtn:hover { opacity: 0.8; }
+
+/* ---------------------------------------------------- */
+/* PICK CONTAINER                                       */
+/* ---------------------------------------------------- */
+
+#pickContainer {
+    display: flex;
+    margin-top: 1.5rem;
+    width: min(95%, 600px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+/* ---------------------------------------------------- */
+/* LOCK BODY / SCREEN                                    */
+/* ---------------------------------------------------- */
+
+.lockBase {
+    border-radius: 25px;
+    background: rgb(13, 13, 85);
+    border: 3px solid #B3B3F1;
+    width: 100%;
+    max-width: 450px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pinRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+.lockScreen {
+    border-radius: 25px;
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    padding: 0.3rem 0,3rem;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+}
+
+.lockClock {
+    position: relative;
+    margin: 0.5rem 0;
+    margin-top: 1rem;
+    margin-bottom: -1rem;
+    font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+    color: white;
+    text-align: center;
+    justify-items: center;
+}
+
+
+/* ---------------------------------------------------- */
+/* PICK LOCK BUTTONS                                    */
+/* ---------------------------------------------------- */
+
+.pickButton {
+    border-radius: 10px;
+    width: 100px;
+    height: 45px;
+    background-color: #B3B3F1;
+    color: black;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.pickButton:hover { opacity: 0.8; }
+
+.pickLockButton {
+    border-radius: 15px;
+    width: 140px;
+    height: 60px;
+    background-color: #B3B3F1;
+    color: black;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+}
+
+.pickLockButton:hover { opacity: 0.8; }
+.pickLockButton:active {
+    background-color: #c61aa1;
+    color: white;
+    outline: solid 1.5px white;
 }
