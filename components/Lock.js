@@ -8,14 +8,36 @@ class Lock {
     pinInfo = null // element to show pin information
     unlocked = false;
     constructor(difficulty, pinNumber) {
+        this.partyPlayed = false;
         this.timeSpent = 0;
         this.difficulty = difficulty;
         this.pinNumber = pinNumber;
+        this.pins = [];
+        this.unlocked = false;
+        this.cheatDown = false;
+        this.cheatUnlockCounter = 0;
+
         for (let i = 0; i < pinNumber; i++) {
             this.pins.push(new LockPin(i, difficulty));
         }
-        this.addThisToPins()
+        this.addThisToPins();
+
+        // base path relative to html at root
+        const basePath = "assets/audioedits/";
+
+        this.audioWoah = new Audio(basePath + "new-lock.mp3");
+        this.audioUnlock1 = new Audio(basePath + "lock-open.mp3");
+        this.audioPin1 = new Audio(basePath + "pin-click.mp3");
+        this.audioFail = new Audio(basePath + "lock-fail.mp3");
+        this.audioOpenPin = new Audio(basePath + "pin-open.mp3");
+
+        [this.audioWoah, this.audioUnlock1, this.audioPin1, this.audioFail, this.audioOpenPin]
+            .forEach(a => a.preload = "auto");
+
+        this.playWoah();
     }
+
+
     addThisToPins() {
         this.pins.forEach(pin => {
             pin.addParentLock(this);
@@ -26,6 +48,11 @@ class Lock {
         this.pins.forEach(pin => pin.displayInfo());
     }
     signalPinUnlocked(sourcePin) {
+        const noise = this.audioOpenPin.cloneNode();
+        noise.play();
+        noise.volume = 1.0;
+        noise.addEventListener("ended", () => noise.remove())
+
         console.log(`Lock received unlock signal from Pin ${sourcePin.position}`);
         let allUnlocked = this.pins.every(pin => pin.unlocked);
         if (allUnlocked) {
@@ -37,7 +64,18 @@ class Lock {
     startCounting() {
         this.timeSpent = 0
         setInterval(() => {
-            if (this.unlocked) { return; } // stop counting if unlocked
+            if (this.unlocked) {
+                if (!this.partyPlayed) {
+                    this.audioUnlock1.play();
+                    this.partyPlayed = true;
+                }
+                return;
+            } // stop counting if unlocked
+            if (this.cheatDown) { this.cheatUnlockCounter++; }
+            else { this.cheatUnlockCounter = 0; }
+            if (this.cheatUnlockCounter >= 2) {
+                this.cheatUnlock();
+            }
             this.timeSpent += 1000;
             totalTimeSpent += 1;
             let totalSeconds = Math.floor(this.timeSpent / 1000);
@@ -57,6 +95,11 @@ class Lock {
         }, 1000);
     }
     applyPressureToSelectedPin(pressure) {
+
+        const noise = this.audioPin1.cloneNode();
+        noise.play();
+        noise.volume = 0.7;
+        noise.addEventListener("ended", () => noise.remove())
         totalPickUses++;
         let selectedPin = this.pins.find(pin => pin.selected);
         if (selectedPin) {
@@ -76,6 +119,12 @@ class Lock {
         this.pinInfo.innerText = info;
     }
     reset() { // can reset due to overpressure, or changing a pin while it has pressure applied to it
+        const noise = this.audioFail.cloneNode();
+        noise.preload = "auto";
+        noise.play();
+        noise.volume = 0.7;
+        noise.addEventListener("ended", () => noise.remove())
+
         console.log("Lock resetting due to overpressure or pin change.");
         this.pins.forEach(pin => {
             pin.appliedPressure = 0;
@@ -87,5 +136,12 @@ class Lock {
             }
         });
         console.log(("Lock Reset. All pins set to 0 pressure."));
+    }
+    playWoah() {
+        const soundInstance = this.audioWoah.cloneNode();
+        soundInstance.preload = "auto";
+        soundInstance.play();
+        soundInstance.volume = 0.5;
+        soundInstance.addEventListener("ended", () => soundInstance.remove())
     }
 }
