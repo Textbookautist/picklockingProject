@@ -19,7 +19,6 @@ class LockPin {
     }
     displayInfo() {
         console.log(`     Pin Position: ${this.position}, Pressure Treshold: ${this.pressureTreshold}`);
-
     }
     toggleSelect() {
         if (this.unlocked) {
@@ -33,12 +32,8 @@ class LockPin {
             this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
             this.pinButton.style.backgroundColor = "#c61aa1";
             this.pinButton.style.color = "white";
-<<<<<<< HEAD
 
             // deselect other pins
-=======
-            this.pinButton.style.border = "solid white 1.5px";
->>>>>>> origin/dev
             this.parentLock.pins.forEach(pin => {
                 if (pin !== this && pin.selected) {
                     pin.toggleSelect();
@@ -60,7 +55,6 @@ class LockPin {
         } else {
             this.pinButton.style.backgroundColor = "#EEE82C";
             this.pinButton.style.color = "black";
-            this.pinButton.style.border = "none";
             if (this.appliedPressure > 0) {
                 this.parentLock.reset();
             }
@@ -84,7 +78,6 @@ class LockPin {
             this.selected = false;
             this.pinButton.style.backgroundColor = "#20a396";
             this.pinButton.style.color = "white";
-            this.pinButton.style.border = "1.5px solid white";
             if (this.pinButton) {
                 this.pinButton.innerText = "✓";
             }
