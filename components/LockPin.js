@@ -26,25 +26,47 @@ class LockPin {
             console.log(`Pin ${this.position} is already unlocked, cannot select.`);
             return;
         }
+
         this.selected = !this.selected;
+
         if (this.selected) {
             this.parentLock.updatePinInformation(`${this.pressureTreshold} / ${this.appliedPressure}`);
             this.pinButton.style.backgroundColor = "#c61aa1";
             this.pinButton.style.color = "white";
+
+            // deselect other pins
             this.parentLock.pins.forEach(pin => {
                 if (pin !== this && pin.selected) {
                     pin.toggleSelect();
                 }
             });
-        }
-        else {
+
+            // start repeating check every 0.1s
+            if (!this._intervalId) {
+                this._intervalId = setInterval(() => {
+                    if (this.selected && this.pinButton) {
+                        this.pinButton.style.backgroundColor = "#c61aa1";
+                        this.pinButton.style.color = "white";
+                    } else {
+                        clearInterval(this._intervalId);
+                        this._intervalId = null;
+                    }
+                }, 100);
+            }
+        } else {
             this.pinButton.style.backgroundColor = "#EEE82C";
             this.pinButton.style.color = "black";
             if (this.appliedPressure > 0) {
-                this.parentLock.reset()
+                this.parentLock.reset();
+            }
+            // stop the interval when deselected
+            if (this._intervalId) {
+                clearInterval(this._intervalId);
+                this._intervalId = null;
             }
         }
     }
+
     applyPressure(currentPressure) {
         this.appliedPressure += currentPressure
         if (this.appliedPressure > this.pressureTreshold) {
